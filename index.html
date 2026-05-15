@@ -3431,6 +3431,23 @@ Here we give intermediate products for producing a base proof that do not depend
 algorithm. These include the transformation step, and the  salting and salted hashing steps of the
 hashing procedure.
           </p>
+          <p>
+TO DO: explain result of transform step, 
+[[[#base-proof-transformation-selective-disclosure]]], from [[[#SD-Base]]] shown
+below.
+          </p>
+          <pre class="example nohighlight" title="SD Base  Transform" data-include="testVectors/pqc-sd/common-outputs/addBaseTransform.json"
+          data-include-format="text"></pre>
+
+          <p>
+TO DO: explain the common output part of the 
+[[[#base-proof-hashing-selective-disclosure]]] step of from [[[#SD-Base]]] shown
+below. This includes the <em>mandatoryHash</em>, <em>salts</em>, and 
+<em>saltedHashes</em>.
+          </p>
+          <pre class="example nohighlight" title="SD Base Hashing Common" data-include="testVectors/pqc-sd/common-outputs/addSaltedHashes.json"
+          data-include-format="text"></pre>
+
         </section>
         <section>
           <h4>SD Base Signature Specific Outputs</h4>
@@ -3438,6 +3455,24 @@ hashing procedure.
 Here we give intermediate products for producing a base proof that depend on the signature
 algorithm. These include the proofHash, signature, and final base document.
           </p>
+          <p>
+TO DO: explain the cryptosuite specific hashes here. Note we integrate all the
+proofHashes from the different proof  configurations into one file.
+          </p>
+          <pre class="example nohighlight" title="SD Base Hashing proofConfigs" data-include="testVectors/pqc-sd/specificHashes.json"
+          data-include-format="text"></pre>
+
+          <p>
+The results of [[[#base-proof-serialization-selective-disclosure]]] is
+integrated into the final output of [[[#SD-Base]]] for each of the example 
+cryptosuites are shown below.
+          </p>
+          <pre class="example nohighlight" title="mldsa44-sd-2024 Base " data-include="testVectors/pqc-sd/mldsa44-sd-2024/addSignedSDBase.json"
+          data-include-format="text"></pre>        
+          <pre class="example nohighlight" title="slhdsa128-sd-2024 Base " data-include="testVectors/pqc-sd/slhdsa128-sd-2024/addSignedSDBase.json"
+          data-include-format="text"></pre>
+          <pre class="example nohighlight" title="falcon512-sd-2024 Base " data-include="testVectors/pqc-sd/falcon512-sd-2024/addSignedSDBase.json"
+          data-include-format="text"></pre>
         </section>
 
         <section>
@@ -3448,6 +3483,19 @@ algorithm. These include the unsigned reveal document, and the mandatory and
 selective indexes, and the label map.
 hashing procedure.
           </p>
+
+          <p>
+TO DO: explain common "create  disclosure data" from 
+[[[#Derived-Create-Disclosure-Data]]] as  shown below.
+          </p>
+          <pre class="example nohighlight" title="Create Disclosure Data - Common " data-include="testVectors/pqc-sd/common-outputs/derivedDisclosure.json"
+          data-include-format="text"></pre>
+
+          <p>
+TO DO: explain the common unsigned revealed document here.
+          </p>
+          <pre class="example nohighlight" title="Unsigned Revealed Document " data-include="testVectors/pqc-sd/common-outputs/derivedUnsignedReveal.json"
+          data-include-format="text"></pre>          
         </section>
         <section>
           <h4>SD Base Signature Specific Outputs</h4>
@@ -3455,6 +3503,24 @@ hashing procedure.
 Here we give final products for producing a derived proof that depend on the signature
 algorithm. This is the  signed derived document for each SD cryptosuite.
           </p>
+          
+          <p>
+TO DO: explain signature part of create disclosure data. Note this information
+is also useful for checking the base stuff.
+          </p>
+          <pre class="example nohighlight" title="PQC Signatures" data-include="testVectors/pqc-sd/specificSignatures.json"
+          data-include-format="text"></pre>
+
+          <p>
+TO DO: explain final derived  proof outputs. Shown below for each example 
+cryptosuite.
+          </p>
+          <pre class="example nohighlight" title="mldsa44-sd-2024 Derived " data-include="testVectors/pqc-sd/mldsa44-sd-2024/derivedRevealDocument.json"
+          data-include-format="text"></pre>        
+          <pre class="example nohighlight" title="slhdsa128-sd-2024 Derived " data-include="testVectors/pqc-sd/slhdsa128-sd-2024/derivedRevealDocument.json"
+          data-include-format="text"></pre>
+          <pre class="example nohighlight" title="falcon512-sd-2024 Derived " data-include="testVectors/pqc-sd/falcon512-sd-2024/derivedRevealDocument.json"
+          data-include-format="text"></pre>
         </section>
 
       <!-- End  of SD Test Vector  Section -->
