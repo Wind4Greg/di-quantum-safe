@@ -3387,7 +3387,80 @@ examples and can be quite lengthy for some quantum safe signature algorithms.
           </pre>
         </section>
       </section>
+      <section id="PQC-SD-TV">
+        <h3>Quantum Safe Selective Disclosure</h3>
+        <p>
+The Quantum-Safe-SD utilize the same set of common inputs described in 
+[[[#test-vector-common-inputs]]], this includes the <em>unsigned document</em>,
+<em>proof options</em> and the example keys for ML-DSA-44, SLH-DSA-SHA2-128s,
+and FALCON-512.
+        </p>
+
+        <section>
+          <h4>Selective Disclosure Common Inputs</h4>
+          <p class="ednote">
+HMAC Key, mandatory pointers, selective pointers. Note we can view the salts as
+common inputs but better to show them when we use them.
+          </p>
+          <p>
+As part of the base proof transformation of Section 
+[[[#base-proof-transformation-selective-disclosure]]] an HMAC key is required. 
+We use the following HMAC key for all selective disclosure test vectors.
+
+          </p>
+          <pre class="example nohighlight" title="HMAC Key" data-include="testVectors/inputs/HMACKey.json"
+          data-include-format="text"></pre>
+          <p>
+The mandatory information as specified by the issuer is specified via an array
+of JSON pointers as shown below.
+          </p>
+          <pre class="example nohighlight" title="Mandatory Pointers" data-include="testVectors/inputs/employMandatory.json"
+          data-include-format="text"></pre>
+          <p>
+The holder indicate what, if anything else, they wish to reveal
+to the verifier by specifying JSON pointers for selective disclosure.
+          </p>
+          <pre class="example nohighlight" title="Selective Disclosure Pointers" data-include="testVectors/inputs/employSelective.json"
+          data-include-format="text"></pre>
+        </section>
+
+        <section>
+          <h4>SD Base Common Outputs</h4>
+          <p class="ednote">
+Here we give intermediate products for producing a base proof that do not depend on the signature
+algorithm. These include the transformation step, and the  salting and salted hashing steps of the
+hashing procedure.
+          </p>
+        </section>
+        <section>
+          <h4>SD Base Signature Specific Outputs</h4>
+          <p class="ednote">
+Here we give intermediate products for producing a base proof that depend on the signature
+algorithm. These include the proofHash, signature, and final base document.
+          </p>
+        </section>
+
+        <section>
+          <h4>SD Derive Common Outputs</h4>
+          <p class="ednote">
+Here we give intermediate products for producing a derived proof that do not depend on the signature
+algorithm. These include the unsigned reveal document, and the mandatory and 
+selective indexes, and the label map.
+hashing procedure.
+          </p>
+        </section>
+        <section>
+          <h4>SD Base Signature Specific Outputs</h4>
+          <p class="ednote">
+Here we give final products for producing a derived proof that depend on the signature
+algorithm. This is the  signed derived document for each SD cryptosuite.
+          </p>
+        </section>
+
+      <!-- End  of SD Test Vector  Section -->
+      </section>
     </section>
+
     <section class="informative">
       <h2>Revision History</h2>
 
