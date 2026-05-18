@@ -3398,10 +3398,14 @@ and FALCON-512.
 
         <section>
           <h4>Selective Disclosure Common Inputs</h4>
-          <p class="ednote">
-HMAC Key, mandatory pointers, selective pointers. Note we can view the salts as
-common inputs but better to show them when we use them.
+          <p>
+For the base proof transformation of Section 
+[[[#base-proof-transformation-selective-disclosure]]], the example mandatory 
+information specified by the issuer is given via an array
+of JSON pointers as shown below.
           </p>
+          <pre class="example nohighlight" title="Mandatory Pointers" data-include="testVectors/inputs/employMandatory.json"
+          data-include-format="text"></pre>
           <p>
 As part of the base proof transformation of Section 
 [[[#base-proof-transformation-selective-disclosure]]] an HMAC key is required. 
@@ -3410,15 +3414,11 @@ We use the following HMAC key for all selective disclosure test vectors.
           </p>
           <pre class="example nohighlight" title="HMAC Key" data-include="testVectors/inputs/HMACKey.json"
           data-include-format="text"></pre>
+
           <p>
-The mandatory information as specified by the issuer is specified via an array
-of JSON pointers as shown below.
-          </p>
-          <pre class="example nohighlight" title="Mandatory Pointers" data-include="testVectors/inputs/employMandatory.json"
-          data-include-format="text"></pre>
-          <p>
-The holder indicate what, if anything else, they wish to reveal
-to the verifier by specifying JSON pointers for selective disclosure.
+To create the derived proof in [[[#SD-Derived]]], the holder indicate what, if 
+anything else, they wish to reveal to the verifier by specifying JSON pointers 
+for selective disclosure. The example selective pointers is shown below:
           </p>
           <pre class="example nohighlight" title="Selective Disclosure Pointers" data-include="testVectors/inputs/employSelective.json"
           data-include-format="text"></pre>
@@ -3426,38 +3426,38 @@ to the verifier by specifying JSON pointers for selective disclosure.
 
         <section>
           <h4>SD Base Common Outputs</h4>
-          <p class="ednote">
-Here we give intermediate products for producing a base proof that do not depend on the signature
-algorithm. These include the transformation step, and the  salting and salted hashing steps of the
-hashing procedure.
-          </p>
           <p>
-TO DO: explain result of transform step, 
-[[[#base-proof-transformation-selective-disclosure]]], from [[[#SD-Base]]] shown
-below.
+The result of transform step, 
+[[[#base-proof-transformation-selective-disclosure]]], from [[[#SD-Base]]] 
+depend on the document, HMAC key, and mandatory pointers but not the specific
+signature algorithm. They result contains appropriately modified maps of 
+mandatory and non-mandatory <em>claims</em> in N-Quad format as shown below.
           </p>
           <pre class="example nohighlight" title="SD Base  Transform" data-include="testVectors/pqc-sd/common-outputs/addBaseTransform.json"
           data-include-format="text"></pre>
 
           <p>
-TO DO: explain the common output part of the 
-[[[#base-proof-hashing-selective-disclosure]]] step of from [[[#SD-Base]]] shown
-below. This includes the <em>mandatoryHash</em>, <em>salts</em>, and 
-<em>saltedHashes</em>.
+The hashing step, 
+[[[#base-proof-hashing-selective-disclosure]]], from [[[#SD-Base]]] consists of
+a signature/cryptosuite specific part <em>proofHash</em> and a cryptosuite 
+independent part that includes the <em>mandatoryHash</em>, <em>salts</em>, and 
+<em>saltedHashes</em> as shown below.
           </p>
           <pre class="example nohighlight" title="SD Base Hashing Common" data-include="testVectors/pqc-sd/common-outputs/addSaltedHashes.json"
           data-include-format="text"></pre>
-
+          <p class="warning">
+We use the same set of <em>salts</em> across all our examples resulting in the
+same set of <em>saltedHashes</em>. In practice <em>salt</em> values can not be
+reused, i.e., reuse of <em>salts</em> can compromise the security of the
+credential, e.g., leaking data on undisclosed <em>claims</em>.
+          </p>
         </section>
         <section>
           <h4>SD Base Signature Specific Outputs</h4>
-          <p class="ednote">
-Here we give intermediate products for producing a base proof that depend on the signature
-algorithm. These include the proofHash, signature, and final base document.
-          </p>
           <p>
-TO DO: explain the cryptosuite specific hashes here. Note we integrate all the
-proofHashes from the different proof  configurations into one file.
+The cryptosuite specific part of the hashing step, 
+[[[#base-proof-hashing-selective-disclosure]]], from [[[#SD-Base]]] consists of
+a  <em>proofHash</em>. These are summarized  below.
           </p>
           <pre class="example nohighlight" title="SD Base Hashing proofConfigs" data-include="testVectors/pqc-sd/specificHashes.json"
           data-include-format="text"></pre>
@@ -3465,7 +3465,8 @@ proofHashes from the different proof  configurations into one file.
           <p>
 The results of [[[#base-proof-serialization-selective-disclosure]]] is
 integrated into the final output of [[[#SD-Base]]] for each of the example 
-cryptosuites are shown below.
+cryptosuites are shown below. The signature values in hex are shown in 
+[[[#example-pqc-signatures]]].
           </p>
           <pre class="example nohighlight" title="mldsa44-sd-2024 Base " data-include="testVectors/pqc-sd/mldsa44-sd-2024/addSignedSDBase.json"
           data-include-format="text"></pre>        
@@ -3473,47 +3474,50 @@ cryptosuites are shown below.
           data-include-format="text"></pre>
           <pre class="example nohighlight" title="falcon512-sd-2024 Base " data-include="testVectors/pqc-sd/falcon512-sd-2024/addSignedSDBase.json"
           data-include-format="text"></pre>
+          <p  class="note">
+Signature values are generally based on non-deterministic algorithms so you can 
+<em>verify</em> a signature value against its corresponding input 
+<em>message</em> but you cannot compare two signature values to validate these
+test vectors, i.e., your generated signature value can be valid, while differing
+from what is presented here.
+          </p>
+
         </section>
 
         <section>
           <h4>SD Derive Common Outputs</h4>
-          <p class="ednote">
-Here we give intermediate products for producing a derived proof that do not depend on the signature
-algorithm. These include the unsigned reveal document, and the mandatory and 
-selective indexes, and the label map.
-hashing procedure.
-          </p>
 
           <p>
-TO DO: explain common "create  disclosure data" from 
-[[[#Derived-Create-Disclosure-Data]]] as  shown below.
+The first step in formulating a derived proof [[[#SD-Derived]]] is to
+[[[#Derived-Create-Disclosure-Data]]] based on the <em>document</em>, 
+<em>base proof</em>, and  <em>selective pointers</em>. This process creates an
+object containing the following items:
+<em>signature</em>, <em>salts</em>, <em>saltedHashes</em>, <em>labelMap</em>, 
+<em>mandatoryIndexes</em>, <em>selectiveIndexes</em> and 
+<em>revealDocument</em>. Except for the <em>signature</em> field these values
+are common across the cryptosuite test vectors and are shown in the two examples
+below.
           </p>
           <pre class="example nohighlight" title="Create Disclosure Data - Common " data-include="testVectors/pqc-sd/common-outputs/derivedDisclosure.json"
           data-include-format="text"></pre>
 
-          <p>
-TO DO: explain the common unsigned revealed document here.
-          </p>
           <pre class="example nohighlight" title="Unsigned Revealed Document " data-include="testVectors/pqc-sd/common-outputs/derivedUnsignedReveal.json"
           data-include-format="text"></pre>          
         </section>
         <section>
-          <h4>SD Base Signature Specific Outputs</h4>
-          <p class="ednote">
-Here we give final products for producing a derived proof that depend on the signature
-algorithm. This is the  signed derived document for each SD cryptosuite.
-          </p>
+          <h4>SD Derive Signature Specific Outputs</h4>
           
           <p>
-TO DO: explain signature part of create disclosure data. Note this information
-is also useful for checking the base stuff.
+The <em>signature</em> portion of the [[[#Derived-Create-Disclosure-Data]]] 
+which is recovered from the base proof is shown below, where we have aggregated
+the different <em>signature</em> values.
           </p>
           <pre class="example nohighlight" title="PQC Signatures" data-include="testVectors/pqc-sd/specificSignatures.json"
           data-include-format="text"></pre>
 
           <p>
-TO DO: explain final derived  proof outputs. Shown below for each example 
-cryptosuite.
+The final ouput, i,e, the signed derived document, from  [[[#SD-Derived]]] for 
+each of our example cryptosuites is shown below.
           </p>
           <pre class="example nohighlight" title="mldsa44-sd-2024 Derived " data-include="testVectors/pqc-sd/mldsa44-sd-2024/derivedRevealDocument.json"
           data-include-format="text"></pre>        
